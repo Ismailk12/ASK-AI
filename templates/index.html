@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ASK AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>🤖 ASK AI</h2>
+        <button id="newChatBtn">+ New Chat</button>
+      </div>
+      <div id="chatList" class="chat-list"></div>
+    </aside>
+
+    <main class="chat-container">
+      <div class="chat-header">
+        <div>
+          <h1>ASK AI</h1>
+          <p>Your intelligent assistant powered by Gemini API</p>
+        </div>
+        <div class="theme-toggle">
+          <button id="themeToggle">🌙</button>
+        </div>
+      </div>
+
+      <div id="chatBox" class="chat-box"></div>
+
+      <form id="chatForm" class="chat-input" enctype="multipart/form-data">
+        <label for="fileInput" class="upload-icon">📎</label>
+        <input type="file" id="fileInput" name="file" accept=".pdf,image/*" hidden />
+        <span id="fileNameDisplay" style="margin-left:10px;font-style:italic"></span>
+        <input type="text" id="userInput" placeholder="Type your message..." autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</body>
+</html>

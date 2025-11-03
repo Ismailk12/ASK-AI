@@ -1,0 +1,226 @@
+/* base */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background-color: #f4f7fb;
+  color: #000; /* keep default text black as requested */
+  transition: background-color 0.25s ease;
+}
+
+/* layout */
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+/* File name display */
+#fileNameDisplay {
+  font-style: italic;
+  margin-left: 10px;
+  color: #333; /* default for light mode */
+}
+
+/* Dark mode adjustment */
+body.dark-mode #fileNameDisplay {
+  color: #ddd; /* light color for dark background */
+}
+
+
+/* sidebar (blue) */
+.sidebar {
+  width: 260px;
+  background: #0d47a1;
+  color: #fff;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.sidebar-header h2 { margin:0; font-size:20px; }
+#newChatBtn { background:#1976d2; color:#fff; border:none; padding:6px 10px; border-radius:8px; cursor:pointer; }
+
+/* chat list */
+.chat-list { flex:1; overflow:auto; margin-top:10px; }
+.chat-item { background: rgba(255,255,255,0.08); padding:10px; border-radius:8px; margin-bottom:8px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; color:#fff; }
+.chat-item:hover { background: rgba(255,255,255,0.14); }
+
+/* main chat area */
+.chat-container { flex:1; display:flex; flex-direction:column; padding:18px; gap:12px; }
+
+/* chat header (centered title and subtitle) */
+.chat-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* centers horizontally */
+  justify-content: center;  /* centers vertically */
+  text-align: center;       /* ensures both lines are centered */
+  gap: 4px;
+  padding: 10px 0;
+}
+.chat-header h1 { margin:0; font-size:26px; }
+.chat-header p { margin:0; color:#555; font-size:15px; }
+
+/* toggle button (dark/light mode switch) */
+.theme-toggle {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #000;
+  transition: color 0.25s ease;
+}
+body.dark-mode .theme-toggle {
+  color: #fff;
+}
+
+/* chat box (messages area with white card) */
+.chat-box {
+  flex:1;
+  background: #fff;
+  border-radius:12px;
+  padding:20px;
+  overflow-y:auto;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* bubbles */
+.message {
+  max-width: 76%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  line-height:1.4;
+  color: #000 !important; /* always black text per your request */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+/* user bubble (aligned right, blue) */
+.message.user {
+  margin-left: auto;
+  background: linear-gradient(180deg, #1976d2, #0f5bb2);
+  color: #fff !important;
+  border-bottom-right-radius: 4px;
+}
+
+/* ai bubble (aligned left, light) */
+.message.ai {
+  margin-right: auto;
+  background: #f1f7fb;
+  color: #000 !important;
+  border-bottom-left-radius: 4px;
+}
+
+/* input area */
+.chat-input {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  background: transparent;
+}
+.chat-input input[type="text"] {
+  flex:1;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid #d0d7de;
+  outline:none;
+}
+.chat-input button {
+  background:#0d47a1;
+  color:#fff;
+  border:none;
+  padding:10px 16px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+/* dark mode: only background + bubble tones change; text stays black */
+body.dark-mode {
+  background-color: #0b1220;
+}
+
+body.dark-mode .chat-box { 
+  background:#0f1724; 
+}
+
+body.dark-mode .message.ai {
+  background: #007b4a !important; /* dark green but not too dark */
+  color: #fff !important;          /* white text */
+}
+
+/* --- Fix header text color in dark mode --- */
+body.dark-mode .chat-header h1,
+body.dark-mode .chat-header p {
+  color: #ffffff !important; /* white text for visibility */
+}
+
+.chat-menu {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.chat-ellipsis {
+  font-weight: bold;
+  padding: 0 5px;
+  user-select: none;
+}
+
+.chat-dropdown {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 10;
+  border-radius: 4px;
+  min-width: 80px;
+}
+
+.chat-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 5px 10px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.chat-dropdown button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Show dropdown on ellipsis click */
+.chat-ellipsis.active + .chat-dropdown {
+  display: block;
+}
+
+.chat-dropdown {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 10;
+  border-radius: 4px;
+  min-width: 80px;
+}
+
+.chat-dropdown.show {
+  display: block;
+}
+
